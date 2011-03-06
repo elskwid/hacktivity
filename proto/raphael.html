@@ -3,8 +3,17 @@
     <title>Raphael hacktivity prototype</title>
     <style>
       body{
-        background-color: black;
-        color: #eee;
+        background-color: #ffffff;
+        color: #000000;
+      }
+      
+      div{
+        background: #000000;
+        position: absolute;
+        left: 20px;
+        top: 75px;
+        width: 500px;
+        height: 500px;
       }
     </style>
     <script src="jquery-1.5.min.js"></script>
@@ -12,20 +21,19 @@
     <script src="hacker.js"></script>
     <script type="text/javascript">
       $(function(){
-
-        // set up the room
-        var room = Raphael(20, 75, 320, 200);
-        var hackers = [];
+        var LEFT = 20;
+        var TOP = 75;
+        var WIDTH = 500;
+        var HEIGHT = 500;
         
-        // delay ...
-        setTimeout(function(){
-          add_hacker();
-        }, 2000);
+        // set up the room
+        var room = Raphael(LEFT, TOP, WIDTH, HEIGHT);
+        var hackers = [];
         
         // add a hacker to the room
         function add_hacker(){
           // new hacker
-          var h = new Hacker(hackers.length, room, {x: Math.random()*200, y: Math.random()*175 }); // can pass in options ... how?
+          var h = new Hacker(hackers.length, room, {x: Math.random()*WIDTH, y: Math.random()*HEIGHT }); // can pass in options ... how?
           hackers.push(h);
           h.arrive();
         };
@@ -39,5 +47,6 @@
   <body>
     <h3>hacktivity</h3>
     <a id='add-hacker' href="#">Add a hacker to the room</a>
+    <div id='container'></div>
   </body>
 </html>
