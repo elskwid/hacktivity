@@ -20,33 +20,53 @@
     <script src="raphael-min.js"></script>
     <script src="hacker.js"></script>
     <script type="text/javascript">
+      var LEFT = 20;
+      var TOP = 75;
+      var WIDTH = 500;
+      var HEIGHT = 500;
+      var hackers = [];
+      
+      // global animation loop / timer
+      setInterval(function() {
+        for(i = 0; i < hackers.length; i++){
+          hackers[i].update();
+        };
+      }, 9);
+      
+      // set things up when the document is ready
       $(function(){
-        var LEFT = 20;
-        var TOP = 75;
-        var WIDTH = 500;
-        var HEIGHT = 500;
-        
         // set up the room
         var room = Raphael(LEFT, TOP, WIDTH, HEIGHT);
-        var hackers = [];
-        
+
         // add a hacker to the room
-        function add_hacker(){
-          // new hacker
-          var h = new Hacker(hackers.length, room, {x: Math.random()*WIDTH, y: Math.random()*HEIGHT }); // can pass in options ... how?
+        function add_hacker() {
+          var startx = (WIDTH/2) + Math.floor(Math.random() * 101) -51;
+          var starty = (HEIGHT/2) + Math.floor(Math.random() * 101) -51;
+          var h = new Hacker(room, hackers, {x: startx, y: starty}); // can pass in options ... how?
           hackers.push(h);
           h.arrive();
         };
         
-      $('#add-hacker').click(function(){
-        add_hacker();
-      });        
+        function move_hacker() {
+          h = hackers[0];
+          h.x = 50;
+          h.y = 50;
+        };
+        
+        $('#add-hacker').click(function() {
+          add_hacker();
+        });
+        
+        $('#move-hacker').click(function() {
+          move_hacker();
+        });
       });
     </script>
   </head>
   <body>
     <h3>hacktivity</h3>
     <a id='add-hacker' href="#">Add a hacker to the room</a>
+    <a id='move-hacker' href="#">Move hacker 0</a>
     <div id='container'></div>
   </body>
 </html>
